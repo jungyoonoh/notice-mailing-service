@@ -41,13 +41,13 @@ const getData = async (callbackFunc) => {
     callbackFunc(notices);
 }
 
-exports.sendEmail = () => { // 이메일 보내기 
+exports.sendEmail = () => { // service
     let smtpTransport = nodemailer.createTransport(smtpTransporter({ 
         service: 'gmail', 
         host: 'smtp.gmail.com', 
         secure: false,
         auth: { 
-            user: process.env.SENDER_EMAIL, // 보내는 분의 메일계정 
+            user: process.env.SENDER_EMAIL, // sender email
             pass: process.env.SENDER_PW 
         } 
     })); 
@@ -66,14 +66,14 @@ exports.sendEmail = () => { // 이메일 보내기
         sendData += "<br><br>" + `<a href="https://www.bokji.net/not/nti/01.bokji style="color: orange; font-size: 2.0em; font-weight: bold; background: #efefef;">복지넷 공지사항 바로가기</a>`;
 
         let mailOption = { 
-            from: process.env.SENDER_USERNAME + '의 메일서비스 <'+process.env.SENDER_EMAIL+'>', // 보내는 분의 메일계정 
-            to: process.env.RECEIVER_EMAIL, // 받는 분의 메일계정 (여러 개 가능) 
+            from: process.env.SENDER_USERNAME + '의 메일서비스 <'+process.env.SENDER_EMAIL+'>', // sender 
+            to: process.env.RECEIVER_EMAIL, // receiver
             subject: "복지넷에 새로운 공고가 있어요!",
             text: "텍스트", 
-            html: sendData // 이 내용이 메일로 전송됩니다.
+            html: sendData // mail content
         }
 
-        smtpTransport.sendMail(mailOption, (err, res) => { // 메일을 보내는 코드 
+        smtpTransport.sendMail(mailOption, (err, res) => { // send
             if (err) { 
                 console.log(err);
                 throw err;

@@ -7,12 +7,11 @@ const path = require(`path`);
 const moment = require('moment');
 const schedule = require('node-schedule');
 require('dotenv').config({path: path.join(__dirname, "./credentials/.env")}); //dir수정
-// require('dotenv').config({path: "../credentials/.env"}); //dir수정
 
 const app = express();
 const port = process.env.PORT || 8001;
 
-app.use(express.json()); // Express v4.16.0 기준 built-in body-parser 포함
+app.use(express.json()); 
 app.use(express.urlencoded({extend:true}));
 app.use(cors());
 app.use(cookieParser());
@@ -38,7 +37,6 @@ const serviceStart = () => {
 app.get('/end', (req, res) => {
     nowRunning = false
     job.cancel();
-    // res.send("서비스 스케줄링을 종료합니다.");
 });
 
 app.get('/start', serviceStart)
@@ -49,5 +47,4 @@ app.get('/check-alive', (req, res) => {
 
 app.get('/', (req, res) => {
     console.log("eat the heroku Caffeine!");
-    // res.send("HELLO WORLD");
 })
