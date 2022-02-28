@@ -46,5 +46,6 @@ app.get('/check-alive', (req, res) => {
 })
 
 app.get('/', (req, res) => {
-    console.log("eat the heroku Caffeine!");
+    console.log("eat the heroku Kaffeine!");
+    res.send("eat the heroku Kaffeine!"); // kaffeine 서비스 작동용 response
 })
