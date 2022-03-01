@@ -54,16 +54,16 @@ exports.sendEmail = () => { // service
     
     getData((data) => {
         let today = moment();
-        let sendData = `<span style="white-space:pre; font-size:16px"> 
+        let sendData = `<span style="white-space:pre; font-size:20px; font-weight:bold"> 
         ${today.format('YYYY년 MM월 DD일')} 공지 모음</span><br>`;
         for(key in data){
-            sendData += `<span style="white-space:pre;">
+            sendData += `<span style="white-space:pre; font-size:14px">
             글 번호 : ${data[key]["noticeNumber"]}
             제목 : ${data[key]["subject"]}
             글 등록 날짜 : ${data[key]["date"]}
             </span>`
         }
-        sendData += "<br><br>" + `<a href="https://www.bokji.net/not/nti/01.bokji">복지넷 공지사항 바로가기</a>`;
+        sendData += "<br><br>" + `<a href="https://www.bokji.net/not/nti/01.bokji" style="color: black; font-size: 2.0em; font-weight: bold; background: #efefef;">복지넷 공지사항 바로가기</a>`;
 
         let mailOption = { 
             from: process.env.SENDER_USERNAME + '의 메일서비스 <'+process.env.SENDER_EMAIL+'>', // sender 

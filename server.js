@@ -23,10 +23,13 @@ app.listen(port, () => {
 let job = null;
 let nowRunning = false;
 
+let testScheduling = '30 * * * * *';
+let schedulingforDeployment = '0 0 23 * * *';
+
 const serviceStart = () => {
     console.log("감지 서비스 시작");
     nowRunning = true;
-    job = schedule.scheduleJob('0 0 23 * * *', () => {
+    job = schedule.scheduleJob(schedulingforDeployment, () => {
         let now = moment();
         console.log(now.format("YYYY년 MM월 DD일 HH시 MM분") + " 이메일 전송 완료");
         mailService.sendEmail();
