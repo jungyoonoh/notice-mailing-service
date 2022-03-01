@@ -63,7 +63,7 @@ exports.sendEmail = () => { // service
             글 등록 날짜 : ${data[key]["date"]}
             </span>`
         }
-        sendData += "<br><br>" + `<a href="https://www.bokji.net/not/nti/01.bokji style="color: orange; font-size: 2.0em; font-weight: bold; background: #efefef;">복지넷 공지사항 바로가기</a>`;
+        sendData += "<br><br>" + `<a href="https://www.bokji.net/not/nti/01.bokji">복지넷 공지사항 바로가기</a>`;
 
         let mailOption = { 
             from: process.env.SENDER_USERNAME + '의 메일서비스 <'+process.env.SENDER_EMAIL+'>', // sender 
