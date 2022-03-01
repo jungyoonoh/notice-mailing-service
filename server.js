@@ -25,8 +25,8 @@ let nowRunning = false;
 
 const serviceStart = () => {
     console.log("감지 서비스 시작");
-    nowRunning = true;    
-    job = schedule.scheduleJob('0 0 8 * * *', () => {
+    nowRunning = true;
+    job = schedule.scheduleJob('0 0 23 * * *', () => {
         let now = moment();
         console.log(now.format("YYYY년 MM월 DD일 HH시 MM분") + " 이메일 전송 완료");
         mailService.sendEmail();
