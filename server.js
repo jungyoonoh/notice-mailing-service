@@ -6,6 +6,7 @@ const mailService = require('./service/mailing.js');
 const path = require(`path`);
 const moment = require('moment');
 const schedule = require('node-schedule');
+const cron = require('node-cron');
 require('dotenv').config({path: path.join(__dirname, "./credentials/.env")}); //dir수정
 
 const app = express();
@@ -23,23 +24,27 @@ app.listen(port, () => {
 let job = null;
 let nowRunning = false;
 
+// scheduling
 let testScheduling = '30 * * * * *';
 let schedulingforDeployment = '0 0 23 * * *';
 
 const serviceStart = () => {
     console.log("감지 서비스 시작");
     nowRunning = true;
-    job = schedule.scheduleJob(schedulingforDeployment, () => {
+    job = cron.schedule(schedulingforDeployment, () => {
         let now = moment();
         console.log(now.format("YYYY년 MM월 DD일 HH시 MM분") + " 이메일 전송 완료");
         mailService.sendEmail();
-    })
+    }, {
+        scheduled: true,
+        timezone: "Asia/Seoul"
+    });
 }
 
 // 나중에 자꾸 도메인 입력 레퍼런싱되면 post로 토큰 넣어서 시작 종료하도록 해야할듯
 app.get('/end', (req, res) => {
     nowRunning = false
-    job.cancel();
+    job.stop();
 });
 
 app.get('/start', serviceStart)
