@@ -17,10 +17,6 @@ app.use(express.urlencoded({extend:true}));
 app.use(cors());
 app.use(cookieParser());
 
-app.listen(port, () => {
-    console.log(`express is running on ${port}`);
-});
-
 let job = null;
 let nowRunning = false;
 
@@ -41,13 +37,18 @@ const serviceStart = () => {
     });
 }
 
+app.listen(port, () => {
+    console.log(`express is running on ${port}`);
+    serviceStart();
+});
+
 // 나중에 자꾸 도메인 입력 레퍼런싱되면 post로 토큰 넣어서 시작 종료하도록 해야할듯
 app.get('/end', (req, res) => {
     nowRunning = false
     job.stop();
 });
 
-app.get('/start', serviceStart)
+// app.get('/start', serviceStart)
 
 app.get('/check-alive', (req, res) => {
     res.send(nowRunning)
